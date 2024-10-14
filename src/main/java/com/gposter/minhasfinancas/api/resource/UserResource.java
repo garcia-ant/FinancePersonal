@@ -13,17 +13,16 @@ import com.gposter.minhasfinancas.exception.RuleBusinessException;
 import com.gposter.minhasfinancas.model.entities.User;
 import com.gposter.minhasfinancas.service.UserService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/api/usuarios")
+@RequiredArgsConstructor
 public class UserResource {
 
 	private final UserService service;
 
-	// Construtor para injetar dependencias o serviço
-	public UserResource(UserService service) {
-		this.service = service;
-	}
-	
+
 	@PostMapping("/autenticar")
 	public ResponseEntity authenticate(@RequestBody UserDTO dto ) {
 		

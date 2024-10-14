@@ -3,6 +3,7 @@ package com.gposter.minhasfinancas.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -36,9 +37,11 @@ public class ReleaseServiceImp implements ReleaseService {
 	@Override
 	@Transactional
 	public Release update(Release release) {
-		Objects.requireNonNull(release.getId());
-		update(release);
-		return repository.save(release);
+	    // Garante que o ID do lançamento não seja nulo
+	    Objects.requireNonNull(release.getId(), "O ID do lançamento não pode ser nulo");
+
+	    // Salva a entidade no repositório
+	    return repository.save(release);
 	}
 
 	@Override
@@ -85,5 +88,10 @@ public class ReleaseServiceImp implements ReleaseService {
 		release.setStatus(status);
 		update(release);
 
+	}
+
+	@Override
+	public Optional<Release> obterPorId(Long id) {
+		return repository.findById(id);
 	}
 }
